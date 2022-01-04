@@ -1,8 +1,10 @@
 import Head from "next/head";
+import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { SubscribeButton } from "../components/SubscribeButton";
 
 import styles from "./home.module.scss";
+import { stripe } from "../services/stripe";
 
 export default function Home() {
   return (
@@ -35,3 +37,11 @@ export default function Home() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const {} = await stripe. 
+  
+  return {
+    props: {},
+  };
+};
