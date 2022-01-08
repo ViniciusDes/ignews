@@ -31,7 +31,7 @@ export default function Home({ product }: HomeProps) {
             <br />
             <span>for {product.amount} month</span>
           </p>
-          <SubscribeButton />
+          <SubscribeButton priceId={product.priceId} />
         </section>
 
         <Image
@@ -47,13 +47,17 @@ export default function Home({ product }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const price = await stripe.prices.retrieve("price_1KEMX4KxrSe6TZ97RtJCSsPM");
-
   const product = {
     priceId: price.id,
-    amount: price.unit_amount / 100,
+    amount: new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price.unit_amount / 100),
   };
 
   return {
-    props: product,
+    props: {
+      product,
+    },
   };
 };
